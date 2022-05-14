@@ -8,12 +8,14 @@ public class User {
     private String position;
     private String role;
     private String department;
+    private  int departmentId;
 
-    public User(String name, String position, String role, String department) {
+    public User(String name, String position, String role, String department,int departmentId) {
         this.name = name;
         this.position = position;
         this.role = role;
         this.department = department;
+        this.departmentId = departmentId;
     }
 //GETTERS
     public int getId() {
@@ -30,6 +32,9 @@ public class User {
     }
     public String getDepartment() {
         return department;
+    }
+    public int getDepartmentId() {
+        return departmentId;
     }
     //SETTERS
 

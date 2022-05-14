@@ -14,6 +14,7 @@ public interface UserDao {
     //Read
     User findById(int id);
     List<User> getAllUsers();
+    public List<Department> getAllUserDepartments(int user_id);
 
     //Delete
     void deleteById(int id);

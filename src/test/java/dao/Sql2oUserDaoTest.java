@@ -49,7 +49,7 @@ class Sql2oUserDaoTest {
     @Test
     public void getsAllUsers() throws Exception{
         User testUser = setupUser();
-        User otherUser= new User("MD","UX","NBV","NBV");
+        User otherUser= new User("MD","UX","NBV","NBV", 2);
         userDao.add(testUser);
         userDao.add(otherUser);
         assertEquals(2, userDao.getAllUsers().size());
@@ -63,7 +63,7 @@ class Sql2oUserDaoTest {
     @Test
     public void clearAll() throws Exception {
         User testUser = setupUser();
-        User otherUser= new User("MD","UX","NBV","NBV");
+        User otherUser= new User("MD","UX","NBV","NBV", 2);
         userDao.clearAllUsers();
         assertEquals(0, userDao.getAllUsers().size());
     }
@@ -71,7 +71,7 @@ class Sql2oUserDaoTest {
 
     //HELPER
     public User setupUser (){
-        return new User ("Ymelda", "Junior designer", "UX designer", "UX");
+        return new User ("Ymelda", "Junior designer", "UX designer", "UX",1);
     }
 
 }

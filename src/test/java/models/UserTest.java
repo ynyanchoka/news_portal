@@ -76,6 +76,6 @@ class UserTest {
 
     //HELPER
     public User setupUser (){
-        return new User ("Ymelda", "Junior designer", "UX designer", "UX");
+        return new User ("Ymelda", "Junior designer", "UX designer", "UX",1);
     }
 }

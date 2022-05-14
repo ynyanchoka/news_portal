@@ -7,6 +7,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oUserDao implements UserDao {
@@ -40,6 +41,27 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("id", id)
                     .executeAndFetchFirst(User.class);
             return user;
+        }
+    }
+
+    @Override
+    public List<Department> getAllUserDepartments(int user_id) {
+        List<Department> department=new ArrayList<>();
+        try (Connection con=sql2o.open()) {
+            String sql = "SELECT department_id FROM departments_staff WHERE user_id=:user_id";
+            List<Integer> departmentId = con.createQuery(sql)
+                    .addParameter("user_id", user_id)
+                    .executeAndFetch(Integer.class);
+
+            for (Integer id : departmentId) {
+                String userResults = "SELECT * FROM department WHERE id=:id";
+                department.add(con.createQuery(userResults)
+                        .addParameter("id", id)
+                        .executeAndFetchFirst(Department.class));
+
+            }
+
+            return department;
         }
     }
 

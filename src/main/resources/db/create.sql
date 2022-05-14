@@ -5,10 +5,10 @@ CREATE TABLE IF NOT EXISTS department(
  departmentsize INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
  id int PRIMARY KEY auto_increment,
  name VARCHAR,
- position VARCHAR,
+ positions VARCHAR,
  role VARCHAR,
  department VARCHAR,
 );

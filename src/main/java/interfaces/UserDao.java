@@ -13,7 +13,7 @@ public interface UserDao {
 
     //Read
     User findById(int id);
-    List<User> getAll();
+    List<User> getAllUsers();
 
     //Delete
     void deleteById(int id);

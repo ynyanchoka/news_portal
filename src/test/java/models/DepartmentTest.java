@@ -49,14 +49,14 @@ class DepartmentTest {
     @Test
     public void setDescriptionSetsCorrectDescription() throws Exception {
         Department testDepartment = setupDepartment();
-        testDepartment.setDepartmentName("Installation and maintenance of computer network system");
-        assertNotEquals("Recruiting",testDepartment.getDescription());
+        testDepartment.setDescription("Recruitment");
+        assertNotEquals("Installation and maintenance of computer network system",testDepartment.getDescription());
     }
     @Test
     public void setSizeSetsCorrectSize() throws Exception {
         Department testDepartment = setupDepartment();
-        testDepartment.setDepartmentName(String.valueOf(12));
-        assertNotEquals(9,testDepartment.getDepartmentSize());
+        testDepartment.setDepartmentSize(Integer.parseInt(String.valueOf(9)));
+        assertNotEquals(12,testDepartment.getDepartmentSize());
     }
 
 

@@ -9,6 +9,7 @@ public class Department {
     private int departmentSize;
     private int id;
 
+
     public Department(String departmentName, String description, int departmentSize) {
         this.departmentName = departmentName;
         this.description = description;

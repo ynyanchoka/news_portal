@@ -12,3 +12,11 @@ CREATE TABLE IF NOT EXISTS users (
  role VARCHAR,
  department VARCHAR,
 );
+
+CREATE TABLE IF NOT EXISTS news (
+ id int PRIMARY KEY auto_increment,
+ title VARCHAR,
+ description VARCHAR,
+ departmentname VARCHAR,
+ type VARCHAR,
+);

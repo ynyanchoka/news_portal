@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS department(
 CREATE TABLE IF NOT EXISTS users (
  id int PRIMARY KEY auto_increment,
  name VARCHAR,
- positions VARCHAR,
+ position VARCHAR,
  role VARCHAR,
  department VARCHAR,
 );

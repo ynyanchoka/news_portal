@@ -1,5 +1,9 @@
 package models;
 
+import org.sql2o.Connection;
+
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 public class Department {
@@ -56,4 +60,6 @@ public class Department {
     public int hashCode() {
         return Objects.hash(departmentName, description, departmentSize, id);
     }
+
+
 }

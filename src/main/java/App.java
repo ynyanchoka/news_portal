@@ -1,8 +1,10 @@
 import dao.Sql2oDepartmentDao;
+import dao.Sql2oDepartmentNewsDao;
 import dao.Sql2oNewsDao;
 import dao.Sql2oUserDao;
 import exceptions.ApiException;
 import models.Department;
+import models.DepartmentNews;
 import models.News;
 import models.User;
 import org.sql2o.Connection;
@@ -24,6 +26,8 @@ public class App {
         Sql2oDepartmentDao departmentDao;
         Sql2oNewsDao newsDao;
         Sql2oUserDao userDao;
+        Sql2oDepartmentNewsDao departmentNewsDao;
+
         Connection conn;
         Gson gson = new Gson();
 
@@ -34,6 +38,7 @@ public class App {
         newsDao = new Sql2oNewsDao(sql2o);
         userDao = new Sql2oUserDao(sql2o);
         departmentDao = new Sql2oDepartmentDao(sql2o);
+        departmentNewsDao = new Sql2oDepartmentNewsDao(sql2o);
         conn = sql2o.open();
 
 
@@ -127,32 +132,22 @@ public class App {
                 return "{\"message\":\"I'm sorry, but no news are currently listed in the database.\"}";
             }
         });
-        get("/news", "application/json", (req, res) -> {
-            return gson.toJson(newsDao.getAllNews());
-        });
-        get("/news/:id", "application/json", (req, res) -> {
-            res.type("application/json");
-            int newsId = Integer.parseInt(req.params("id"));
-            return gson.toJson(newsDao.findById(newsId));
-        });
-
-//        post("/news/new/department","application/json",(request, response) -> {
-//            News department_news =gson.fromJson(request.body(),News.class);
-//            Departments departments=sql2oDepartmentsDao.findById(department_news.getDepartment_id());
-//            Users users=sql2oUsersDao.findById(department_news.getUser_id());
-//            if(departments==null){
-//                throw new ApiException(404, String.format("No department with the id: \"%s\" exists",
-//                        request.params("id")));
-//            }
-//            if(users==null){
-//                throw new ApiException(404, String.format("No user with the id: \"%s\" exists",
-//                        request.params("id")));
-//            }
-//            sql2oNewsDao.addNews(department_news);
-//            response.status(201);
-//            return gson.toJson(department_news);
+//        get("/news", "application/json", (req, res) -> {
+//            return gson.toJson(newsDao.getAllNews());
 //        });
-        //check
+//        get("/news/:id", "application/json", (req, res) -> {
+//            res.type("application/json");
+//            int newsId = Integer.parseInt(req.params("id"));
+//            return gson.toJson(newsDao.findById(newsId));
+//        });
+
+        post("/news/new/department","application/json",(request, response) -> {
+            DepartmentNews departmentNews =gson.fromJson(request.body(),DepartmentNews.class);
+            departmentNewsDao.add(departmentNews);
+            response.status(201);
+            return gson.toJson(departmentNews);
+        });
+//        check
         get("/news/department/:id","application/json",(request, response) -> {
 
             int id=Integer.parseInt(request.params("id"));

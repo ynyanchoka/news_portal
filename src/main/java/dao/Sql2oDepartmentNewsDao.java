@@ -1,6 +1,7 @@
 package dao;
 
-import interfaces.NewsDao;
+import interfaces.DepartmentNewsDao;
+import models.DepartmentNews;
 import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -8,31 +9,33 @@ import org.sql2o.Sql2oException;
 
 import java.util.List;
 
-public class Sql2oDepartmentNewsDao implements NewsDao {
+public class Sql2oDepartmentNewsDao implements DepartmentNewsDao {
     private final Sql2o sql2o;
     public Sql2oDepartmentNewsDao (Sql2o sql2o){ this.sql2o = sql2o; }
 
 
+
     @Override
-    public void add(News news) {
+    public void add(DepartmentNews departmentNews) {
         String sql = "INSERT INTO news (title,description,departmentname,type) VALUES (:title,:description ,:departmentName,:type)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
-                    .bind(news)
+                    .bind(departmentNews)
                     .executeUpdate()
                     .getKey();
-            news.setId(id);
+            departmentNews.setId(id);
         } catch (
                 Sql2oException ex) {
             System.out.println(ex);
         }
+
     }
 
     @Override
-    public List<News> getAllNews() {
+    public List<DepartmentNews> getAllDepartmentNews() {
         try(Connection connection = sql2o.open()) {
             return connection.createQuery("SELECT * FROM news")
-                    .executeAndFetch(News.class);
+                    .executeAndFetch(DepartmentNews.class);
         }
     }
 
@@ -40,10 +43,10 @@ public class Sql2oDepartmentNewsDao implements NewsDao {
     public News findById(int id) {
         try(Connection con = sql2o.open()) {
             String sql = "SELECT * FROM news where id=:id";
-            News news = con.createQuery(sql)
+            DepartmentNews departmentNews = con.createQuery(sql)
                     .addParameter("id", id)
-                    .executeAndFetchFirst(News.class);
-            return news;
+                    .executeAndFetchFirst(DepartmentNews.class);
+            return departmentNews;
         }
     }
 
@@ -61,7 +64,7 @@ public class Sql2oDepartmentNewsDao implements NewsDao {
     }
 
     @Override
-    public void clearAllNews() {
+    public void clearAllDepartmentNews() {
         String sql = "DELETE from news";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql).executeUpdate();
@@ -70,4 +73,6 @@ public class Sql2oDepartmentNewsDao implements NewsDao {
         }
 
     }
+
+
 }

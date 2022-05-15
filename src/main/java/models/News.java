@@ -8,7 +8,9 @@ public class News {
     public String departmentName;
     public int id;
     public String type;
-//    public static final String TYPE = "General news";
+
+
+
 
     public News(String title, String description, String type) {
         this.title = title;

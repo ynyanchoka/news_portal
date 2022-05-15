@@ -43,7 +43,7 @@ public class App {
 
 
         //department
-
+//post new department
         post("/department/new", "application/json", (req, res) -> {
             Department department = gson.fromJson(req.body(), Department.class);
             departmentDao.add(department);
@@ -51,7 +51,7 @@ public class App {
             return gson.toJson(department);
         });
 
-
+//get department by id
         get("/department/:id", "application/json", (req, res) -> {
             int departmentId = Integer.parseInt(req.params("id"));
             Department departmentToFind = departmentDao.findById(departmentId);
@@ -60,7 +60,7 @@ public class App {
             }
             return gson.toJson(departmentToFind);
         });
-
+//get all departmments
         get("/department", "application/json", (req, res) -> {
             System.out.println(departmentDao.getAll());
 
@@ -71,10 +71,11 @@ public class App {
             }
 
         });
+        //get user's department
         get("/user/:id/department","application/json",(request, response) -> {
             int id=Integer.parseInt(request.params("id"));
-            if(userDao.getAllUserDepartments(id).size()>0){
-                return gson.toJson(userDao.getAllUserDepartments(id));
+            if(userDao.getAllUserInDepartments(id).size()>0){
+                return gson.toJson(userDao.getAllUserInDepartments(id));
             }
             else {
                 return "{\"message\":\"I'm sorry, but user is in no department.\"}";
@@ -84,13 +85,14 @@ public class App {
 
 
         //user
+        //post new user
         post("/user/new", "application/json", (req, res) -> {
             User user = gson.fromJson(req.body(), User.class);
             userDao.add(user);
             res.status(201);
             return gson.toJson(user);
         });
-        ///check
+        //get users in a department
         get("/department/:id/user","application/json",(request, response) -> {
             int id=Integer.parseInt(request.params("id"));
             if(departmentDao.getAllUsersInDepartment(id).size()>0){
@@ -100,6 +102,19 @@ public class App {
                 return "{\"message\":\"I'm sorry, but department this has no users.\"}";
             }
         });
+        //get all users
+        get("/user", "application/json", (req, res) -> {
+            System.out.println(userDao.getAllUsers());
+
+            if (userDao.getAllUsers().size() > 0) {
+                return gson.toJson(userDao.getAllUsers());
+            } else {
+                return "{\"message\":\"I'm sorry, but no users are available.\"}";
+            }
+
+        });
+
+        //get users by id
 
         get("/user/:id", "application/json", (req, res) -> {
             int userId = Integer.parseInt(req.params("id"));
@@ -111,6 +126,7 @@ public class App {
         });
 
         //news
+        //post news
         post("/news/new", "application/json", (req, res) -> {
             News news = gson.fromJson(req.body(), News.class);
             newsDao.add(news);
@@ -118,12 +134,17 @@ public class App {
             return gson.toJson(news);
         });
 
+        //post general news
+
         post("/news/new/general","application/json",(request, response) -> {
             News news =gson.fromJson(request.body(),News.class);
+            news.setCreatedat();
+            news.setFormattedCreatedAt();
             newsDao.add(news);
             response.status(201);
             return gson.toJson(news);
         });
+        //get general news
         get("/news/general","application/json",(request, response) -> {
             if(newsDao.getAllNews().size()>0){
                 return gson.toJson(newsDao.getAllNews());
@@ -132,39 +153,35 @@ public class App {
                 return "{\"message\":\"I'm sorry, but no news are currently listed in the database.\"}";
             }
         });
-//        get("/news", "application/json", (req, res) -> {
-//            return gson.toJson(newsDao.getAllNews());
-//        });
-//        get("/news/:id", "application/json", (req, res) -> {
-//            res.type("application/json");
-//            int newsId = Integer.parseInt(req.params("id"));
-//            return gson.toJson(newsDao.findById(newsId));
-//        });
 
-        post("/news/new/department","application/json",(request, response) -> {
-            DepartmentNews departmentNews =gson.fromJson(request.body(),DepartmentNews.class);
+
+//post department news
+
+        post("/department/:id/news/new","application/json",(request, response) -> {
+
+            int id = Integer.parseInt(request.params("id"));
+            DepartmentNews departmentNews = gson.fromJson(request.body(),DepartmentNews.class);
+            departmentNews.setCreatedat();
+            departmentNews.setFormattedCreatedAt();
+            departmentNews.setDepartmentId(id);
             departmentNewsDao.add(departmentNews);
-            response.status(201);
-            return gson.toJson(departmentNews);
+            response.status(200);
+            return  gson.toJson(departmentNews) ;
+
         });
 
 
-//        check
-        get("/news/department/:id","application/json",(request, response) -> {
+//       get departmental news
 
-            int id=Integer.parseInt(request.params("id"));
-            Department department=departmentDao.findById(id);
-            if(department==null){
-                throw new ApiException(404, String.format("No department with the id: \"%s\" exists",
-                        request.params("id")));
-            }
-            if(departmentDao.getDepartmentNews(id).size()>0){
-                return gson.toJson(departmentDao.getDepartmentNews(id));
+        get("/department/:id/news","application/json",(request, response) -> {
+            if(departmentNewsDao.getAllDepartmentNews().size()>0){
+                return gson.toJson(departmentNewsDao.getAllDepartmentNews());
             }
             else {
-                return "{\"message\":\"I'm sorry, but no news in this department.\"}";
+                return "{\"message\":\"I'm sorry, but no news are currently available.\"}";
             }
         });
+
 
 
         // FILTERS

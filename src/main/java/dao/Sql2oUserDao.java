@@ -27,11 +27,7 @@ public class Sql2oUserDao implements UserDao {
 
     }
 
-    @Override
-    public void addUserToDepartment(User user, Department department) {
 
-
-    }
 
     @Override
     public User findById(int id) {
@@ -45,7 +41,7 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public List<Department> getAllUserDepartments(int user_id) {
+    public List<Department> getAllUserInDepartments(int user_id) {
         List<Department> department=new ArrayList<>();
         try (Connection con=sql2o.open()) {
             String sql = "SELECT department_id FROM departments_staff WHERE user_id=:user_id";

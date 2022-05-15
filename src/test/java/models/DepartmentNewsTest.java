@@ -36,6 +36,6 @@ class DepartmentNewsTest {
 
     //HELPER
     public DepartmentNews setupDepartmentNews (){
-        return new DepartmentNews ("Training", "Training scheduled tomorrow", "Department news", "UX");
+        return new DepartmentNews ("Training", "Training scheduled tomorrow", "Department news" ,3);
     }
 }

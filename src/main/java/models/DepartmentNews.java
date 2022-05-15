@@ -4,21 +4,23 @@ import java.util.Objects;
 
 public class DepartmentNews extends News{
     public static final String TYPE = "Department news";
-    public String departmentName;
+    private  int departmentId;
 
-    public DepartmentNews(String title, String description, String type,String departmentName) {
+    public DepartmentNews(String title, String description, String type,int departmentId) {
         super(title, description, type);
-        this.departmentName = departmentName;
+        this.departmentId = departmentId;
     }
 
-    @Override
-    public String getDepartmentName() {
-        return departmentName;
+//GETTERS
+
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    @Override
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+
+//SETTERS
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
 

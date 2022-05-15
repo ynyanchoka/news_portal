@@ -11,7 +11,7 @@ public interface DepartmentNewsDao {
 
     //Read
 
-    List<News> getAllDepartmentNews();
+    List<DepartmentNews> getAllDepartmentNews();
     News findById(int id);
 
     //Delete

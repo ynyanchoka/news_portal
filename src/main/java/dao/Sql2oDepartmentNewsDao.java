@@ -17,7 +17,7 @@ public class Sql2oDepartmentNewsDao implements DepartmentNewsDao {
 
     @Override
     public void add(DepartmentNews departmentNews) {
-        String sql = "INSERT INTO news (title,description,departmentname,type) VALUES (:title,:description ,:departmentName,:type)";
+        String sql = "INSERT INTO news (title,description,departmentname,type,departmentid) VALUES (:title,:description ,:departmentName,:type,:departmentId)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(departmentNews)
@@ -32,10 +32,10 @@ public class Sql2oDepartmentNewsDao implements DepartmentNewsDao {
     }
 
     @Override
-    public List<News> getAllDepartmentNews() {
+    public List<DepartmentNews> getAllDepartmentNews() {
         try(Connection connection = sql2o.open()) {
             return connection.createQuery("SELECT * FROM news")
-                    .executeAndFetch(News.class);
+                    .executeAndFetch(DepartmentNews.class);
         }
     }
 

@@ -1,13 +1,16 @@
 package models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class News {
     public String title;
     public String description;
-    public String departmentName;
     public int id;
     public String type;
+    private long createdat;
+    private String formattedCreatedAt;
 
 
 
@@ -16,31 +19,31 @@ public class News {
         this.title = title;
         this.description = description;
         this.type = type;
+        this.createdat = System.currentTimeMillis();
+        setFormattedCreatedAt();
     }
 
-    public News(String title, String description, String departmentName, String type) {
-        this.title = title;
-        this.description = description;
-        this.departmentName = departmentName;
-        this.type = type;
-    }
-//GETTERS
+
+
+
+    //GETTERS
     public String getTitle() {
         return title;
     }
     public String getDescription() {
         return description;
     }
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
     public int getId() {
         return id;
     }
     public String getType() {
         return type;
     }
+    public long getCreatedat() {
+        return createdat;
+    }
+
+
 //SETTERS
     public void setTitle(String title) {
         this.title = title;
@@ -50,9 +53,6 @@ public class News {
         this.description = description;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -61,17 +61,43 @@ public class News {
     public void setType(String type) {
         this.type = type;
     }
+    public void setCreatedat() {
+        this.createdat = System.currentTimeMillis();
+    }
+
+//    public String getFormattedCreatedAt(){
+//        String someString = " ";
+//        return someString;
+//    }
+//
+//    public void setFormattedCreatedAt(){
+//        this.formattedCreatedAt = "some time";
+//    }
+
+    public String getFormattedCreatedAt(){
+        Date date = new Date(createdat);
+        String datePatternToUse = "MM/dd/yyyy @ K:mm a";
+        SimpleDateFormat sdf = new SimpleDateFormat(datePatternToUse);
+        return sdf.format(date);
+    }
+
+    public void setFormattedCreatedAt(){
+        Date date = new Date(this.createdat);
+        String datePatternToUse = "MM/dd/yyyy @ K:mm a";
+        SimpleDateFormat sdf = new SimpleDateFormat(datePatternToUse);
+        this.formattedCreatedAt = sdf.format(date);
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof News)) return false;
         News news = (News) o;
-        return id == news.id && title.equals(news.title) && description.equals(news.description) && departmentName.equals(news.departmentName) && type.equals(news.type);
+        return id == news.id && title.equals(news.title) && description.equals(news.description)  && type.equals(news.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, departmentName, id, type);
+        return Objects.hash(title, description, id, type);
     }
 }

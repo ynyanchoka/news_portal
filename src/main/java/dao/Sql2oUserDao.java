@@ -14,7 +14,7 @@ public class Sql2oUserDao implements UserDao {
     private final Sql2o sql2o;
     public Sql2oUserDao (Sql2o sql2o){ this.sql2o = sql2o; }
     public void add(User user) {
-        String sql = "INSERT INTO users (name,position,role,department) VALUES (:name,:position ,:role,:department)";
+        String sql = "INSERT INTO users (name,position,role,department,departmentId) VALUES (:name,:position ,:role,:department,:departmentId)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(user)

@@ -147,6 +147,8 @@ public class App {
             response.status(201);
             return gson.toJson(departmentNews);
         });
+
+
 //        check
         get("/news/department/:id","application/json",(request, response) -> {
 

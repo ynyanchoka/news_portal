@@ -60,7 +60,7 @@ public class App {
             }
             return gson.toJson(departmentToFind);
         });
-//get all departmments
+//get all departments
         get("/department", "application/json", (req, res) -> {
             System.out.println(departmentDao.getAll());
 
@@ -70,16 +70,6 @@ public class App {
                 return "{\"message\":\"I'm sorry, but no departments are available.\"}";
             }
 
-        });
-        //get user's department
-        get("/user/:id/department","application/json",(request, response) -> {
-            int id=Integer.parseInt(request.params("id"));
-            if(userDao.getAllUserInDepartments(id).size()>0){
-                return gson.toJson(userDao.getAllUserInDepartments(id));
-            }
-            else {
-                return "{\"message\":\"I'm sorry, but user is in no department.\"}";
-            }
         });
 
 
@@ -92,16 +82,7 @@ public class App {
             res.status(201);
             return gson.toJson(user);
         });
-        //get users in a department
-        get("/department/:id/user","application/json",(request, response) -> {
-            int id=Integer.parseInt(request.params("id"));
-            if(departmentDao.getAllUsersInDepartment(id).size()>0){
-                return gson.toJson(departmentDao.getAllUsersInDepartment(id));
-            }
-            else {
-                return "{\"message\":\"I'm sorry, but department this has no users.\"}";
-            }
-        });
+
         //get all users
         get("/user", "application/json", (req, res) -> {
             System.out.println(userDao.getAllUsers());
@@ -113,7 +94,6 @@ public class App {
             }
 
         });
-
         //get users by id
 
         get("/user/:id", "application/json", (req, res) -> {
@@ -125,14 +105,20 @@ public class App {
             return gson.toJson(userToFind);
         });
 
-        //news
-        //post news
-        post("/news/new", "application/json", (req, res) -> {
-            News news = gson.fromJson(req.body(), News.class);
-            newsDao.add(news);
-            res.status(201);
-            return gson.toJson(news);
+        //get users in a department
+        get("/department/:id/user","application/json",(request, response) -> {
+            int id=Integer.parseInt(request.params("id"));
+            if(departmentDao.getAllUsersInDepartment(id).size()>0){
+                return gson.toJson(departmentDao.getAllUsersInDepartment(id));
+            }
+            else {
+                return "{\"message\":\"I'm sorry, but department this has no users.\"}";
+            }
         });
+
+
+
+        //news
 
         //post general news
 
@@ -150,7 +136,7 @@ public class App {
                 return gson.toJson(newsDao.getAllNews());
             }
             else {
-                return "{\"message\":\"I'm sorry, but no news are currently listed in the database.\"}";
+                return "{\"message\":\"I'm sorry, but no news is available currently.\"}";
             }
         });
 

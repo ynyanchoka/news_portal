@@ -30,10 +30,7 @@ public class Sql2oDepartmentDao implements DepartmentDao {
     }
 
 
-    @Override
-    public void addUserToDepartment(User user, Department department) {
 
-    }
 
     @Override
     public List<Department>getAll() {
@@ -73,11 +70,6 @@ public class Sql2oDepartmentDao implements DepartmentDao {
 
             return user;
         }
-    }
-
-    @Override
-    public List<News> getDepartmentNews(int id) {
-        return null;
     }
 
     @Override

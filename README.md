@@ -25,6 +25,23 @@ This is a REST API or querying and retrieving scoped news and information in an 
 
 
 ## Setup/Installation Requirements
+#### To recreate database:
+
+1.Launch postgres
+
+2.Type in psql -U (username) then run the following
+- CREATE DATABASE newsportal;
+- \c newsportal;
+
+- CREATE TABLE department (id serial PRIMARY KEY, departmentname varchar, description varchar, departmentsize varchar);
+
+- CREATE TABLE users (id serial PRIMARY KEY, name varchar, position varchar, role varchar, department varchar, departmentid int);
+- CREATE TABLE news (id serial PRIMARY KEY, title varchar, description varchar, type varchar, departmentid int, createdat BIGINT);
+- CREATE TABLE departments_staff (id serial PRIMARY KEY, userid int, departmentid int);
+
+- CREATE DATABASE newsportal_test WITH TEMPLATE newsportal;
+
+#### To clone the repository:
 - Clone this repository using:
   git clone 'https://github.com/ynyanchoka/news_portal.git'
 - Navigate to the directory:

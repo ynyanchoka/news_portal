@@ -105,14 +105,16 @@ public class App {
             return gson.toJson(userToFind);
         });
 
-        //get users in a department
-        get("/department/:id/user","application/json",(request, response) -> {
-            int id=Integer.parseInt(request.params("id"));
-            if(departmentDao.getAllUsersInDepartment(id).size()>0){
-                return gson.toJson(departmentDao.getAllUsersInDepartment(id));
-            }
-            else {
-                return "{\"message\":\"I'm sorry, but department this has no users.\"}";
+
+        get("/department/:id/user", "application/json", (req, res) -> {
+            int department_id = Integer.parseInt(req.params("id"));
+            Department departmentToFind = departmentDao.findById(department_id);
+            if (departmentToFind == null) {
+                throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
+            } else if (departmentDao.getAllUsersInDepartment(department_id).size() == 0) {
+                return "{\"message\":\"I'm sorry, but no users are listed for this department.\"}";
+            } else {
+                return gson.toJson(departmentDao.getAllUsersInDepartment(department_id));
             }
         });
 

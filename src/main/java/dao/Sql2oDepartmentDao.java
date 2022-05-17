@@ -54,22 +54,23 @@ public class Sql2oDepartmentDao implements DepartmentDao {
     @Override
     public List<User> getAllUsersInDepartment(int department_id) {
         List<User> user=new ArrayList<>();
+        String joinQuery= "SELECT user_id FROM departments_staff WHERE department_id=:department_id";
         try (Connection con=sql2o.open()){
-            String sql= "SELECT user_id FROM departments_staff WHERE department_id=:department_id";
-            List<Integer> userIds=con.createQuery(sql)
+            List<Integer> allUserIds=con.createQuery(joinQuery)
                     .addParameter("department_id",department_id)
                     .executeAndFetch(Integer.class);
 
-            for(Integer id : userIds){
-                String userResults="SELECT * FROM users WHERE id=:id";
-                user.add(con.createQuery(userResults)
-                        .addParameter("id",id)
+            for(Integer user_id : allUserIds) {
+                String userQuery = "SELECT * FROM users WHERE id=:id";
+                user.add(con.createQuery(userQuery)
+                        .addParameter("user_id", user_id)
                         .executeAndFetchFirst(User.class));
-
             }
 
-            return user;
+        } catch (Sql2oException ex){
+                System.out.println(ex);
         }
+            return user;
     }
 
     @Override

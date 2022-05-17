@@ -119,7 +119,6 @@ public class App {
         });
 
 
-
         //news
 
         //post general news

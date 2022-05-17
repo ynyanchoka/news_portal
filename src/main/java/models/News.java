@@ -5,14 +5,13 @@ import java.util.Date;
 import java.util.Objects;
 
 public class News {
+
     public String title;
     public String description;
     public int id;
     public String type;
     private long createdat;
     private String formattedCreatedAt;
-    private  int departmentId;
-
 
 
 
@@ -20,7 +19,6 @@ public class News {
         this.title = title;
         this.description = description;
         this.type = type;
-        this.departmentId = departmentId;
         this.createdat = System.currentTimeMillis();
         setFormattedCreatedAt();
     }
@@ -44,9 +42,7 @@ public class News {
     public long getCreatedat() {
         return createdat;
     }
-    public int getDepartmentId() {
-        return departmentId;
-    }
+
 
 
 
@@ -70,9 +66,6 @@ public class News {
         this.type = type;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
     public void setCreatedat() {
         this.createdat = System.currentTimeMillis();
     }

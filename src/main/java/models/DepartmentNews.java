@@ -1,9 +1,10 @@
 package models;
 
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DepartmentNews extends News{
-    public static final String TYPE = "Department news";
+
     private  int departmentId;
 
     public DepartmentNews(String title, String description, String type,int departmentId) {
@@ -18,10 +19,13 @@ public class DepartmentNews extends News{
     }
 
 
-//SETTERS
+    //SETTERS
     public void setDepartmentId(int departmentId) {
         this.departmentId = departmentId;
     }
+
+
+
 
 
 }

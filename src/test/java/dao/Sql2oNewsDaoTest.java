@@ -80,7 +80,7 @@ class Sql2oNewsDaoTest {
 
     //HELPER
     public News setupNews (){
-        return new News ("Training", "Training scheduled tomorrow", "UX", "Department news");
+        return new News ("Training", "Training scheduled tomorrow",  "Department news");
     }
     public News setupAltNews (){
         return new News ("Training", "Training scheduled tomorrow", "General news");

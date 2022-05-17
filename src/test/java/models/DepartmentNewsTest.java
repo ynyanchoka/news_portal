@@ -22,20 +22,20 @@ class DepartmentNewsTest {
         assertEquals(true, testDepartmentNews instanceof DepartmentNews);
     }
     @Test
-    public void getDepartmentReturnsCorrectDepartment() throws Exception {
+    public void getDepartmentIDReturnsCorrectDepartment() throws Exception {
         DepartmentNews testDepartmentNews = setupDepartmentNews();
-        assertEquals("UX", testDepartmentNews.getDepartmentName());
+        assertEquals(5, testDepartmentNews.getDepartmentId());
     }
 
     @Test
-    public void setDepartmentSetsCorrectDepartment() throws Exception {
+    public void setDepartmentIDSetsCorrectDepartment() throws Exception {
         DepartmentNews testDepartmentNews = setupDepartmentNews();
-        testDepartmentNews.setDepartmentName("NBV");
-        assertNotEquals("UX",testDepartmentNews.getDepartmentName());
+        testDepartmentNews.setDepartmentId(7);
+        assertNotEquals(5,testDepartmentNews.getDepartmentId());
     }
 
     //HELPER
     public DepartmentNews setupDepartmentNews (){
-        return new DepartmentNews ("Training", "Training scheduled tomorrow", "Department news" ,3);
+        return new DepartmentNews ("Training", "Training scheduled tomorrow", "Department news" ,5);
     }
 }

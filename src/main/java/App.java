@@ -21,7 +21,7 @@ public class App {
     private static Sql2o sql2o;
 
     public static void main(String[] args) {
-        port(8080);
+        port(5400);
 
         Sql2oDepartmentDao departmentDao;
         Sql2oNewsDao newsDao;
@@ -105,7 +105,7 @@ public class App {
             return gson.toJson(userToFind);
         });
 
-
+//get users in a department
         get("/department/:id/user", "application/json", (req, res) -> {
             int department_id = Integer.parseInt(req.params("id"));
             Department departmentToFind = departmentDao.findById(department_id);
@@ -168,6 +168,8 @@ public class App {
                 return "{\"message\":\"I'm sorry, but no news are currently available.\"}";
             }
         });
+
+
 
 
 

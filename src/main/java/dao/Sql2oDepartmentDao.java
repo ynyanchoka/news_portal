@@ -13,19 +13,19 @@ import java.util.List;
 
 public class Sql2oDepartmentDao implements DepartmentDao {
     private final Sql2o sql2o;
-    public Sql2oDepartmentDao (Sql2o sql2o){ this.sql2o = sql2o; } //making the sql2o object available everywhere so we can call methods in it
+    public Sql2oDepartmentDao (Sql2o sql2o){ this.sql2o = sql2o; }
 
     @Override
     public void add(Department department) {
         String sql = "INSERT INTO department (departmentname,description,departmentsize) VALUES (:departmentName,:description,:departmentSize)";
-        try(Connection con = sql2o.open()){ //try to open a connection
-            int id = (int) con.createQuery(sql, true) //make a new variable
-                    .bind(department) //map argument onto the query, so we can use information from it
-                    .executeUpdate()//run it all
-                    .getKey();//int id is now the row number (row “key”) of db
-            department.setId(id);//update object to set id now from database
+        try(Connection con = sql2o.open()){
+            int id = (int) con.createQuery(sql, true)
+                    .bind(department)
+                    .executeUpdate()
+                    .getKey();
+            department.setId(id);
         } catch (Sql2oException ex) {
-            System.out.println(ex);// error!
+            System.out.println(ex);
         }
     }
 

@@ -12,8 +12,11 @@ public interface UserDao {
 
     //Read
     User findById(int id);
+
+    List<Department> getAllUserInDepartments(int user_id);
+
     List<User> getAllUsers();
-    public List<Department> getAllUserInDepartments(int user_id);
+
 
     //Delete
     void deleteById(int id);

@@ -27,8 +27,6 @@ public class Sql2oUserDao implements UserDao {
 
     }
 
-
-
     @Override
     public User findById(int id) {
         try(Connection con = sql2o.open()) {

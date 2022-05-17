@@ -15,6 +15,6 @@ public interface DepartmentNewsDao {
     News findById(int id);
 
     //Delete
-    void deleteById(int id);
+
     void clearAllDepartmentNews();
 }

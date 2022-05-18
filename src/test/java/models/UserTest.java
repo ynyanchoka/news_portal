@@ -46,6 +46,11 @@ class UserTest {
         assertEquals("UX", testUser.getDepartment());
     }
     @Test
+    public void getDepartmentIdReturnsCorrectDepartmentId() throws Exception {
+        User testUser = setupUser();
+        assertEquals(1, testUser.getDepartmentId());
+    }
+    @Test
     public void setNameSetsCorrectName() throws Exception {
         User testUser = setupUser();
         testUser.setName("Nyash");
@@ -71,6 +76,13 @@ class UserTest {
         testUser.setDepartment("HR");
         assertNotEquals("UX",testUser.getDepartment());
     }
+    @Test
+    public void setDepartmentIdSetsCorrectDepartmentId() throws Exception {
+        User testUser = setupUser();
+        testUser.setDepartmentId(7);
+        assertNotEquals(1,testUser.getDepartment());
+    }
+
 
 
 

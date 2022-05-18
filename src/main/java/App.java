@@ -13,6 +13,7 @@ import org.sql2o.Sql2o;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -76,8 +77,10 @@ public class App {
 
         //user
         //post new user
-        post("/user/new", "application/json", (req, res) -> {
+        post("/department/:id/user/new", "application/json", (req, res) -> {
+            int departmentId = Integer.parseInt(req.params("id"));
             User user = gson.fromJson(req.body(), User.class);
+            user.setDepartmentId(departmentId);
             userDao.add(user);
             res.status(201);
             return gson.toJson(user);
@@ -107,14 +110,15 @@ public class App {
 
 //get users in a department
         get("/department/:id/user", "application/json", (req, res) -> {
-            int department_id = Integer.parseInt(req.params("id"));
-            Department departmentToFind = departmentDao.findById(department_id);
+            int departmentId = Integer.parseInt(req.params(":id"));
+            Department departmentToFind = departmentDao.findById(departmentId);
+            List <User> users;
             if (departmentToFind == null) {
                 throw new ApiException(404, String.format("No department with the id: \"%s\" exists", req.params("id")));
-            } else if (departmentDao.getAllUsersInDepartment(department_id).size() == 0) {
-                return "{\"message\":\"I'm sorry, but no users are listed for this department.\"}";
-            } else {
-                return gson.toJson(departmentDao.getAllUsersInDepartment(department_id));
+            }
+            else {
+                users=userDao.getAllUserInDepartments(departmentId);
+                return gson.toJson(users);
             }
         });
 

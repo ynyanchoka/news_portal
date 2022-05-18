@@ -57,17 +57,23 @@ public class User {
     public void setDepartment(String department) {
         this.department = department;
     }
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.id && name.equals(user.name) && position.equals(user.position) && role.equals(user.role) && department.equals(user.department);
+        return id == user.id && departmentId == user.departmentId && Objects.equals(name, user.name) && Objects.equals(position, user.position) && Objects.equals(role, user.role) && Objects.equals(department, user.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, position, role, department);
+        return Objects.hash(id, name, position, role, department, departmentId);
     }
+
+
+
 }

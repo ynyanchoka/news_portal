@@ -13,7 +13,8 @@ public interface UserDao {
     //Read
     User findById(int id);
 
-    List<Department> getAllUserInDepartments(int user_id);
+
+    public List<User> getAllUserInDepartments(int departmentId);
 
     List<User> getAllUsers();
 

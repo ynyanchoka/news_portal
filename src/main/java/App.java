@@ -108,6 +108,17 @@ public class App {
             return gson.toJson(userToFind);
         });
 
+        //delete users by id
+
+        get("/user/:id/delete", "application/json", (req, res) -> {
+            int userId = Integer.parseInt(req.params("id"));
+            User userToDelete = userDao.deleteById(userId);
+            if (userToDelete == null) {
+                throw new ApiException(200, String.format("User with the id: \"%s\" deleted", req.params("id")));
+            }
+            return gson.toJson(userToDelete);
+        });
+
 //get users in a department
         get("/department/:id/user", "application/json", (req, res) -> {
             int departmentId = Integer.parseInt(req.params(":id"));
@@ -121,6 +132,8 @@ public class App {
                 return gson.toJson(users);
             }
         });
+
+
 
 
         //news

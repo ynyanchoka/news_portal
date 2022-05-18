@@ -1,13 +1,11 @@
 package dao;
 
 import interfaces.UserDao;
-import models.Department;
 import models.User;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oUserDao implements UserDao {
@@ -57,7 +55,7 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
-    public void deleteById(int id) {
+    public User deleteById(int id) {
         String sql = "DELETE from users WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
@@ -67,6 +65,7 @@ public class Sql2oUserDao implements UserDao {
             System.out.println(ex);
         }
 
+        return null;
     }
 
     @Override
